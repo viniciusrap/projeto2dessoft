@@ -1,2 +1,1 @@
 print('vini')
-fala thi
