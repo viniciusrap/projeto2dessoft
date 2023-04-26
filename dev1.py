@@ -67,6 +67,27 @@ def afundados(frota,tabuleiro):
             if test == len(y):
                 soma += 1
     return soma
+def posicao_valida(frota,linha,coluna,orientação,tamanho):
+    posição = define_posicoes(linha,coluna,orientação,tamanho)
+    for x in frota:
+        for y in frota[x]:
+            for t in y:
+                for m in posição:
+                    linha = m[0]
+                    coluna = m[1]
+                    if linha > 9 or coluna > 9 or linha < 0 or coluna <0:
+                        return False
+                    if t == m:
+                        return False
+    if len(frota) == 0:
+        for m in posição:
+                    linha = m[0]
+                    coluna = m[1]
+                    if linha > 9 or coluna > 9 or linha < 0 or coluna <0:
+                        return False
+    return True
+
+
 
 
 
