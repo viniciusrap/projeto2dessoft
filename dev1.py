@@ -43,3 +43,15 @@ def faz_jogada(tabuleiro,linha,coluna):
     elif tabuleiro[linha][coluna] == 0:
         tabuleiro[linha][coluna] = '-'
     return tabuleiro
+def posiciona_frota(frota):
+    tabuleiro = [0]*10
+    for i in tabuleiro:
+        i = [0]*10
+    for x in frota:
+        for y in frota[x]:
+            for t in y:
+                linha = t[0]
+                coluna = t[1]
+                tabuleiro[linha][coluna] = 1
+    return tabuleiro
+                
