@@ -1,4 +1,3 @@
-print('vini')
 def define_posicoes(linha,coluna,orientação,tamanho):
     posição = []
     i = 0 
