@@ -45,8 +45,8 @@ def faz_jogada(tabuleiro,linha,coluna):
     return tabuleiro
 def posiciona_frota(frota):
     tabuleiro = [0]*10
-    for i in tabuleiro:
-        i = [0]*10
+    for i in range(len(tabuleiro)):
+        tabuleiro[i] = [0]*10
     for x in frota:
         for y in frota[x]:
             for t in y:
@@ -54,4 +54,19 @@ def posiciona_frota(frota):
                 coluna = t[1]
                 tabuleiro[linha][coluna] = 1
     return tabuleiro
-                
+def afundados(frota,tabuleiro):
+    soma = 0
+    for x in frota:
+        for y in frota[x]:
+            test = 0
+            for t in y:
+                linha = t[0]
+                coluna = t[1]
+                if tabuleiro[linha][coluna] == 'X':
+                    test += 1
+            if test == len(y):
+                soma += 1
+    return soma
+
+
+
