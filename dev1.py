@@ -79,7 +79,7 @@ def posicao_valida(frota,linha,coluna,orientação,tamanho):
                         return False
                     if t == m:
                         return False
-    if len(frota) == 0:
+    if len(frota[x]) == 0:
         for m in posição:
                     linha = m[0]
                     coluna = m[1]
@@ -98,36 +98,42 @@ tamanhodict = {
     "contratorpedeiro": 2,
     "submarino": 1,
 }
+quantidade = {
+    "porta-aviões": 1,
+    "navio-tanque": 2,
+    "contratorpedeiro": 3,
+    "submarino": 4,
+}
+orientação =''
 for x in frota:
-    tamanho = tamanhodict[x]
-    print('Insira as informações referentes ao navio {0} que possui tamanho {1}'.format(x,tamanho))
+    for l in range((quantidade[x])):
+        tamanho = tamanhodict[x]
+        print('Insira as informações referentes ao navio {0} que possui tamanho {1}'.format(x,tamanho))
 
-    linha = float(input('linha'))
-    coluna = float(input('coluna'))
-    orientação = ''
-    if x != 'submarino':
-        orienta = float(input('orientação'))
-        if orienta == 1:
-            orientação = 'vertical'
-        elif orienta == 2:
-            orientação = 'horizontal'
-    verifica = posicao_valida(frota,linha,coluna,orientação,tamanho)
-    c = True
-    while c:
-        if verifica == False:
-            print('Esta posição não está válida!')
-            linha = float(input('linha'))
-            coluna = float(input('coluna'))
-            orientação = ''
-            if x != 'submarino':
-                orienta = float(input('orientação'))
-                if orienta == 1:
-                    orientação = 'vertical'
-                elif orienta == 2:
-                    orientação = 'horizontal'
-            verifica = posicao_valida(frota,linha,coluna,orientação,tamanho)
-        if verifica == True:
-            c = False
-    frota = (preenche_frota(frota,x,linha,coluna,orientação,tamanho))
-print(frota)
+        linha = int(input('linha'))
+        coluna = int(input('coluna'))
+        if x != 'submarino':
+            orienta = int(input('orientação'))
+            if orienta == 1:
+                orientação = 'vertical'
+            elif orienta == 2:
+                orientação = 'horizontal'
+        verifica = posicao_valida(frota,linha,coluna,orientação,tamanho)
+        c = True
+        while c:
+            if verifica == True:
+                c = False
+            if verifica == False:
+                print('Esta posição não está válida!')
+                print('Insira as informações referentes ao navio {0} que possui tamanho {1}'.format(x,tamanho))
+                linha = int(input('linha'))
+                coluna = int(input('coluna'))
+                if x != 'submarino':
+                    orienta = int(input('orientação'))
+                    if orienta == 1:
+                        orientação = 'vertical'
+                    elif orienta == 2:
+                        orientação = 'horizontal'
+                verifica = posicao_valida(frota,linha,coluna,orientação,tamanho)
+        frota = (preenche_frota(frota,x,linha,coluna,orientação,tamanho))
 
