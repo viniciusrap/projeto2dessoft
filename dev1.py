@@ -86,8 +86,48 @@ def posicao_valida(frota,linha,coluna,orientação,tamanho):
                     if linha > 9 or coluna > 9 or linha < 0 or coluna <0:
                         return False
     return True
+frota = {
+    "porta-aviões":[],
+    "navio-tanque":[],
+    "contratorpedeiro":[],
+    "submarino": [],
+}
+tamanhodict = {
+    "porta-aviões": 4,
+    "navio-tanque": 3,
+    "contratorpedeiro": 2,
+    "submarino": 1,
+}
+for x in frota:
+    tamanho = tamanhodict[x]
+    print('Insira as informações referentes ao navio {0} que possui tamanho {1}'.format(x,tamanho))
 
-
-
-
+    linha = float(input('linha'))
+    coluna = float(input('coluna'))
+    orientação = ''
+    if x != 'submarino':
+        orienta = float(input('orientação'))
+        if orienta == 1:
+            orientação = 'vertical'
+        elif orienta == 2:
+            orientação = 'horizontal'
+    verifica = posicao_valida(frota,linha,coluna,orientação,tamanho)
+    c = True
+    while c:
+        if verifica == False:
+            print('Esta posição não está válida!')
+            linha = float(input('linha'))
+            coluna = float(input('coluna'))
+            orientação = ''
+            if x != 'submarino':
+                orienta = float(input('orientação'))
+                if orienta == 1:
+                    orientação = 'vertical'
+                elif orienta == 2:
+                    orientação = 'horizontal'
+            verifica = posicao_valida(frota,linha,coluna,orientação,tamanho)
+        if verifica == True:
+            c = False
+    frota = (preenche_frota(frota,x,linha,coluna,orientação,tamanho))
+print(frota)
 
