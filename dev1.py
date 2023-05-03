@@ -174,6 +174,7 @@ def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
 posicoes_informadas = []
 jogando = True
 while jogando:
+    print(tabuleiro_jogador, tabuleiro_oponente)
 
     linha = int(input('Informe a linha que deseja atacar (0-9): '))
     if linha < 0 or linha > 9:
@@ -188,9 +189,12 @@ while jogando:
     if [linha, coluna] in posicoes_informadas:
         print(f'A posição linha {linha} e coluna {coluna} já foi informada anteriormente!')
     
-    faz_jogada(linha, coluna,tabuleiro_oponente)
-    posicoes_informadas.append([linha, coluna])
+    if linha >= 0 or linha <= 9 and coluna >= 0 or coluna <= 9 and [linha, coluna] not in posicoes_informadas:
+        tabuleiro_oponente = faz_jogada(tabuleiro_oponente,linha, coluna)
+        
+        posicoes_informadas.append([linha, coluna])
 
-    if afundados(tabuleiro_jogador, tabuleiro_oponente) == 4:
-        print('Parabéns! Você derrubou todos os navios do seu oponente!')
-        jogando = False
+
+        if afundados(posicoes_informadas, tabuleiro_oponente) == 4:
+            print('Parabéns! Você derrubou todos os navios do seu oponente!')
+            jogando = False
