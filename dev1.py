@@ -54,18 +54,18 @@ def posiciona_frota(frota):
                 coluna = t[1]
                 tabuleiro[linha][coluna] = 1
     return tabuleiro
+
 def afundados(frota,tabuleiro):
     soma = 0
+    
     for x in frota:
-        for y in frota[x]:
-            test = 0
-            for t in y:
-                linha = t[0]
-                coluna = t[1]
-                if tabuleiro[linha][coluna] == 'X':
-                    test += 1
-            if test == len(y):
-                soma += 1
+        continua = False
+        linha = x[0]
+        coluna = x[1]
+        if tabuleiro[linha][coluna] == 'X':
+            continua = True
+        if continua == True:
+            soma += 1
     return soma
 def posicao_valida(frota,linha,coluna,orientação,tamanho):
     posição = define_posicoes(linha,coluna,orientação,tamanho)
@@ -175,19 +175,26 @@ posicoes_informadas = []
 jogando = True
 while jogando:
     print(tabuleiro_jogador, tabuleiro_oponente)
+    while True:
+        teste_linha = True
+        while teste_linha:
+            linha = int(input('Informe a linha que deseja atacar (0-9): '))
+            if linha < 0 or linha > 9:
+                print('Linha inválida!')
+            elif linha >= 0 or linha <= 9:
+                teste_linha = False
+        teste_coluna = True
+        while teste_coluna:
+            coluna = int(input('Informe a coluna que deseja atacar (0-9): '))
+            if coluna < 0 or coluna > 9:
+                print('Coluna inválida!')
+            elif coluna >= 0 or coluna <= 9:
+                teste_coluna = False    
 
-    linha = int(input('Informe a linha que deseja atacar (0-9): '))
-    if linha < 0 or linha > 9:
-        print('Linha inválida!')
-        linha = int(input('Informe a linha que deseja atacar (0-9): '))
-    
-    coluna = int(input('Informe a coluna que deseja atacar (0-9): '))
-    if coluna < 0 or coluna > 9:
-        print('Coluna inválida!')
-        coluna = int(input('Informe a coluna que deseja atacar (0-9): '))
-
-    if [linha, coluna] in posicoes_informadas:
-        print(f'A posição linha {linha} e coluna {coluna} já foi informada anteriormente!')
+        if [linha, coluna] in posicoes_informadas:
+            print(f'A posição linha {linha} e coluna {coluna} já foi informada anteriormente!')
+        elif [linha, coluna] not in posicoes_informadas:
+            break
     
     if linha >= 0 or linha <= 9 and coluna >= 0 or coluna <= 9 and [linha, coluna] not in posicoes_informadas:
         tabuleiro_oponente = faz_jogada(tabuleiro_oponente,linha, coluna)
@@ -195,6 +202,6 @@ while jogando:
         posicoes_informadas.append([linha, coluna])
 
 
-        if afundados(posicoes_informadas, tabuleiro_oponente) == 4:
+        if afundados(posicoes_informadas, tabuleiro_oponente) == 20:
             print('Parabéns! Você derrubou todos os navios do seu oponente!')
             jogando = False
