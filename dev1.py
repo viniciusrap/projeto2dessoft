@@ -1,3 +1,4 @@
+import random
 def define_posicoes(linha,coluna,orientação,tamanho):
     posição = []
     i = 0 
@@ -170,8 +171,8 @@ def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
         oponente_info = '  '.join([info if str(info) in 'X-' else '0' for info in tabuleiro_oponente[linha]])
         texto += f'{linha}| {jogador_info}|     {linha}| {oponente_info}|\n'
     return texto
-
-posicoes_informadas = []
+posicoes_oponente = []
+posicoes_jogador = []
 jogando = True
 while jogando:
     print(tabuleiro_jogador, tabuleiro_oponente)
@@ -191,17 +192,30 @@ while jogando:
             elif coluna >= 0 or coluna <= 9:
                 teste_coluna = False    
 
-        if [linha, coluna] in posicoes_informadas:
+        if [linha, coluna] in posicoes_jogador:
             print(f'A posição linha {linha} e coluna {coluna} já foi informada anteriormente!')
-        elif [linha, coluna] not in posicoes_informadas:
+        elif [linha, coluna] not in posicoes_jogador:
             break
     
-    if linha >= 0 or linha <= 9 and coluna >= 0 or coluna <= 9 and [linha, coluna] not in posicoes_informadas:
+    if linha >= 0 or linha <= 9 and coluna >= 0 or coluna <= 9 and [linha, coluna] not in posicoes_jogador:
         tabuleiro_oponente = faz_jogada(tabuleiro_oponente,linha, coluna)
         
-        posicoes_informadas.append([linha, coluna])
+        posicoes_jogador.append([linha, coluna])
 
 
-        if afundados(posicoes_informadas, tabuleiro_oponente) == 20:
+        if afundados(posicoes_jogador, tabuleiro_oponente) == 20:
             print('Parabéns! Você derrubou todos os navios do seu oponente!')
             jogando = False
+        elif afundados(posicoes_jogador, tabuleiro_oponente) != 20:
+            x = True
+            while x:
+                linha1 = random.randint(0, 9)
+                coluna1 = random.randint(0, 9)
+                if [linha, coluna] not in posicoes_oponente:
+                    posicoes_oponente.append([linha1, coluna1])
+                    print(f"Seu oponente está atacando na linha {linha1} e coluna {coluna1}")
+                    tabuleiro_jogador = faz_jogada(tabuleiro_jogador,linha, coluna)
+                    x = False
+                elif afundados(posicoes_oponente, tabuleiro_jogador) == 20:
+                    print("Xi! O oponente derrubou toda a sua frota =(")
+                    jogando = False    
