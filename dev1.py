@@ -1,4 +1,5 @@
 import random
+random.seed(1)
 def define_posicoes(linha,coluna,orientação,tamanho):
     posição = []
     i = 0 
@@ -218,4 +219,22 @@ while jogando:
                     x = False
                 elif afundados(posicoes_oponente, tabuleiro_jogador) == 20:
                     print("Xi! O oponente derrubou toda a sua frota =(")
-                    jogando = False    
+                    jogando = False
+        ataque_oponente_anterior = []
+        jogando1 = True
+        while jogando1:
+            linha_oponente = random.randint(0,9)
+            coluna_oponente = random.randint(0,9)
+        
+            ataque_oponente = [linha_oponente, coluna_oponente]
+        
+        if ataque_oponente not in ataque_oponente_anterior:
+            ataque_oponente_anterior.append(ataque_oponente)
+            jogando1 = False
+            print('Seu oponente está atacando na linha {0} e coluna {1}'.format(linha_oponente, coluna_oponente))
+            novo_tabuleiro = faz_jogada(tabuleiro_jogador, linha_oponente, coluna_oponente)
+            afundados1 = afundados (frota, novo_tabuleiro)
+
+        if afundados1 == 10:
+            print ('Xi! O oponente derrubou toda a sua frota =(')
+            jogando = False
