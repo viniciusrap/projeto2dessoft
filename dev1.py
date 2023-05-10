@@ -1,5 +1,5 @@
 import random
-random.seed(1)
+random.seed(2)
 def define_posicoes(linha,coluna,orientação,tamanho):
     posição = []
     i = 0 
@@ -176,7 +176,7 @@ posicoes_oponente = []
 posicoes_jogador = []        
 jogando = True               
 while jogando:
-    print(tabuleiro_jogador, tabuleiro_oponente)
+    print(monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente))
     while True:  
         teste_linha = True
         while teste_linha:
@@ -204,23 +204,23 @@ while jogando:
         posicoes_jogador.append([linha, coluna])
 
 
-        if afundados(posicoes_jogador, tabuleiro_oponente) == 10:
+        if afundados(posicoes_jogador, tabuleiro_oponente) == 20:
             print('Parabéns! Você derrubou todos os navios do seu oponente!')
             jogando = False
 
-    jogando1 = True
-    while jogando1:
-        linha_oponente = random.randint(0,9)
-        coluna_oponente = random.randint(0,9)
-        
-        ataque_oponente = [linha_oponente, coluna_oponente]
-        
-        if ataque_oponente not in posicoes_oponente:
-            posicoes_oponente.append(ataque_oponente)
-            jogando1 = False
-            print('Seu oponente está atacando na linha {0} e coluna {1}'.format(linha_oponente, coluna_oponente))
-            tabuleiro_oponente = faz_jogada(tabuleiro_jogador, linha_oponente, coluna_oponente)
+        jogando1 = True
+        while jogando1:
+            linha_oponente = random.randint(0,9)
+            coluna_oponente = random.randint(0,9)
+            
+            ataque_oponente = [linha_oponente, coluna_oponente]
+            
+            if ataque_oponente not in posicoes_oponente:
+                jogando1 = False
+                print('Seu oponente está atacando na linha {0} e coluna {1}'.format(linha_oponente, coluna_oponente))
+                tabuleiro_jogador = faz_jogada(tabuleiro_jogador, linha_oponente, coluna_oponente)
+                posicoes_oponente.append([linha_oponente, coluna_oponente])
 
-        if afundados(frota, tabuleiro_oponente) == 10:
-            print ('Xi! O oponente derrubou toda a sua frota =(')
-            jogando = False
+                if afundados(posicoes_oponente, tabuleiro_jogador) == 20:
+                    print ('Xi! O oponente derrubou toda a sua frota =(')
+                    jogando = False
