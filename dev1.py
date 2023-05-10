@@ -172,12 +172,12 @@ def monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente):
         oponente_info = '  '.join([info if str(info) in 'X-' else '0' for info in tabuleiro_oponente[linha]])
         texto += f'{linha}| {jogador_info}|     {linha}| {oponente_info}|\n'
     return texto
-posicoes_oponente = []
-posicoes_jogador = []
-jogando = True
+posicoes_oponente = []    
+posicoes_jogador = []        
+jogando = True               
 while jogando:
     print(tabuleiro_jogador, tabuleiro_oponente)
-    while True:
+    while True:  
         teste_linha = True
         while teste_linha:
             linha = int(input('Informe a linha que deseja atacar (0-9): '))
@@ -199,42 +199,28 @@ while jogando:
             break
     
     if linha >= 0 or linha <= 9 and coluna >= 0 or coluna <= 9 and [linha, coluna] not in posicoes_jogador:
-        tabuleiro_oponente = faz_jogada(tabuleiro_oponente,linha, coluna)
+        tabuleiro_oponente = faz_jogada(tabuleiro_oponente,linha, coluna)  
         
         posicoes_jogador.append([linha, coluna])
 
 
-        if afundados(posicoes_jogador, tabuleiro_oponente) == 20:
+        if afundados(posicoes_jogador, tabuleiro_oponente) == 10:
             print('Parabéns! Você derrubou todos os navios do seu oponente!')
             jogando = False
-        elif afundados(posicoes_jogador, tabuleiro_oponente) != 20:
-            x = True
-            while x:
-                linha1 = random.randint(0, 9)
-                coluna1 = random.randint(0, 9)
-                if [linha, coluna] not in posicoes_oponente:
-                    posicoes_oponente.append([linha1, coluna1])
-                    print(f"Seu oponente está atacando na linha {linha1} e coluna {coluna1}")
-                    tabuleiro_jogador = faz_jogada(tabuleiro_jogador,linha, coluna)
-                    x = False
-                elif afundados(posicoes_oponente, tabuleiro_jogador) == 20:
-                    print("Xi! O oponente derrubou toda a sua frota =(")
-                    jogando = False
-        ataque_oponente_anterior = []
-        jogando1 = True
-        while jogando1:
-            linha_oponente = random.randint(0,9)
-            coluna_oponente = random.randint(0,9)
+
+    jogando1 = True
+    while jogando1:
+        linha_oponente = random.randint(0,9)
+        coluna_oponente = random.randint(0,9)
         
-            ataque_oponente = [linha_oponente, coluna_oponente]
+        ataque_oponente = [linha_oponente, coluna_oponente]
         
-        if ataque_oponente not in ataque_oponente_anterior:
-            ataque_oponente_anterior.append(ataque_oponente)
+        if ataque_oponente not in posicoes_oponente:
+            posicoes_oponente.append(ataque_oponente)
             jogando1 = False
             print('Seu oponente está atacando na linha {0} e coluna {1}'.format(linha_oponente, coluna_oponente))
-            novo_tabuleiro = faz_jogada(tabuleiro_jogador, linha_oponente, coluna_oponente)
-            afundados1 = afundados (frota, novo_tabuleiro)
+            tabuleiro_oponente = faz_jogada(tabuleiro_jogador, linha_oponente, coluna_oponente)
 
-        if afundados1 == 10:
+        if afundados(frota, tabuleiro_oponente) == 10:
             print ('Xi! O oponente derrubou toda a sua frota =(')
             jogando = False
