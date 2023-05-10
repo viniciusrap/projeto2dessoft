@@ -1,5 +1,4 @@
 import random
-random.seed(2)
 def define_posicoes(linha,coluna,orientação,tamanho):
     posição = []
     i = 0 
@@ -205,8 +204,9 @@ while jogando:
 
 
         if afundados(posicoes_jogador, tabuleiro_oponente) == 20:
+            print(monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente))
             print('Parabéns! Você derrubou todos os navios do seu oponente!')
-            jogando = False
+            break
 
         jogando1 = True
         while jogando1:
@@ -222,5 +222,6 @@ while jogando:
                 posicoes_oponente.append([linha_oponente, coluna_oponente])
 
                 if afundados(posicoes_oponente, tabuleiro_jogador) == 20:
+                    print(monta_tabuleiros(tabuleiro_jogador, tabuleiro_oponente))
                     print ('Xi! O oponente derrubou toda a sua frota =(')
                     jogando = False
